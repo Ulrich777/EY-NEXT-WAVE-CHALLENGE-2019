@@ -1,1 +1,3 @@
 # EY-NEXT-WAVE-CHALLENGE-2019
+
+Global Rank: 23/373  & France: 4/30
