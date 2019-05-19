@@ -31,7 +31,9 @@ if NORMALIZE:
     X_te = scaler.transform(X_te)
     
 
-full_model =  model_reg(120, lstm=True, time=5, feats=24)
+cluster_centers_arr = np.load(PATH_TO_DATA + 'anchors_nlp_arr.npy')
+
+full_model =  model_reg(120, cluster_centers_arr, lstm=True, time=5, feats=24)
 root = PATH_TO_DATA + 'models/lstm_reg_rand'
 ckpt = ModelCheckpoint('%s.h5'%(root), save_best_only=True, save_weights_only=True, 
                        verbose=1, monitor='val_loss', mode='min')
@@ -40,7 +42,7 @@ history  =  full_model.fit( X_tr[:,:-2]  , X_tr[:,-2:]  , epochs =  20 , batch_s
                            validation_data=[X_ev[:,:-2], X_ev[:,-2:]], callbacks=[ckpt])#
 
 
-full_model =  model_reg(110, lstm=True, time=5, feats=24)
+full_model =  model_reg(120, cluster_centers_arr, lstm=True, time=5, feats=24)
 full_model.load_weights(PATH_TO_DATA + 'models/lstm_reg_rand.h5')
 
 # Predictions
